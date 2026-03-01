@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from config import Config
 from db import db
+from flask_jwt_extended import JWTManager 
 from routes.auth import auth_bp
 from routes.categories import categories_bp
 from routes.permissions import permissions_bp
@@ -12,6 +13,7 @@ def create_app():
     app.config.from_object(Config)
     CORS(app)
     db.init_app(app)
+    JWTManager(app) 
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(categories_bp, url_prefix='/api/categories')
     app.register_blueprint(permissions_bp, url_prefix='/api/permissions')
